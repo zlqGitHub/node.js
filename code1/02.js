@@ -4,8 +4,8 @@ let name = "张利强";
 let fun = ()=>{
     console.log("我正在学习node.js");
 }
-
-//在node中通过使用 exports 来将资源暴露出去
+console.log("我是 02.js 文件");
+//在node中通过使用 exports 来将资源暴露出去    到导入文件打印时，自身文件中的打印也会输出到控制台中
 exports.age = age;
 exports.fun = fun;
 
