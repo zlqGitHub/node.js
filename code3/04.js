@@ -1,5 +1,5 @@
 /*
-    表单请求
+    表单请求之 get
     获取表单中传递过来的数据
 */
 let http = require("http");
