@@ -76,5 +76,5 @@ let server = http.createServer((req,res) => {
     }
 })
 
-//3.监听状态
+//3.监听状态   默认端口可省略
 server.listen(80,"127.0.0.1");
