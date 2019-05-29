@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>ejs模板殷勤的使用</title>
+    <style>
+        /*用到了在线字体，需要在服务器下运行*/
+        @font-face {
+            font-family: 'iconfont';  /* project id 1216206 */
+            src: url('//at.alicdn.com/t/font_1216206_mzg9u5am4xj.eot');
+            src: url('//at.alicdn.com/t/font_1216206_mzg9u5am4xj.eot?#iefix') format('embedded-opentype'),
+            url('//at.alicdn.com/t/font_1216206_mzg9u5am4xj.woff2') format('woff2'),
+            url('//at.alicdn.com/t/font_1216206_mzg9u5am4xj.woff') format('woff'),
+            url('//at.alicdn.com/t/font_1216206_mzg9u5am4xj.ttf') format('truetype'),
+            url('//at.alicdn.com/t/font_1216206_mzg9u5am4xj.svg#iconfont') format('svg');
+        }
+        .box{
+            width: 400px;
+            border: 1px solid #ccc;
+            margin: 50px auto;
+        }
+        ul{margin:0;padding: 0;}
+        li{
+            list-style: none;
+            height: 40px;
+            border-top: 1px solid #ccc;
+            margin: 0;
+            box-sizing: border-box;
+        }
+        ul>li:first-child{
+            border: none;
+        }
+        li.top span{
+            line-height: 40px;
+            display: inline-block;
+            width: 49%;
+            text-align: center;
+        }
+        li.item{
+            line-height: 40px;
+            padding: 0px 10px;
+        }
+        li.item>.order{
+            padding: 0px 4px;
+            background: red;
+            font-size: 12px;
+        }
+        li.item>.title{
+            font-size: 14px;
+            color: #333;
+        }
+        li.item>.point{
+            float: right;
+            font-family: "iconfont";
+            font-size: 13px;
+            font-style: normal;
+        }
+        li.item>.up{
+            color: red;
+        }
+        li.item>.down{
+            color: blue;
+        }
+        li.item>.num{
+            float: right;
+            padding: 0px 6px;
+        }
+    </style>
+</head>
+<body>
+<div class="box">
+    <ul>
+        <li class="top">
+            <span>排名</span>
+            <span>搜索指数</span>
+        </li>
+        <li class="item">
+            <span class="order">1</span>
+            <span class="title">中北大学</span>
+            <i class="point up">&#xe62f;</i>
+            <span class="num">165467</span>
+        </li>
+        <li class="item">
+            <span class="order">1</span>
+            <span class="title">中北大学</span>
+            <i class="point up">&#xe62f;</i>
+            <span class="num">165467</span>
+        </li>
+        <li class="item">
+            <span class="order">1</span>
+            <span class="title">中北大学</span>
+            <i class="point up">&#xe62f;</i>
+            <span class="num">165467</span>
+        </li>
+        <li>
+            <span style="line-height: 40px;color: #666;font-size: 14px;float: right;padding-right: 10px;">来源：百度风云榜 -  实时热点</span>
+        </li>
+    </ul>
+</div>
+</body>
+</html>
