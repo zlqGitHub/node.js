@@ -32,9 +32,9 @@ http.createServer((req,res) => {
     fs.readFile(fileUrl,(err,data) => {
         //没有找到
         if(err){
-            throw err;
             res.writeHead(404,{"Content-Type":"text/html;charset=utf-8"});
             res.end("<h1>404,数据加载错误!</h1>");
+            // throw err;     如果不抛出异常，出错后，重新输入正确网址，不需要重新启动服务器，就可以使用
         }else{
             // console.log(data.toString());
             getContentTyppe(extname,(contentType) => {
