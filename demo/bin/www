@@ -88,3 +88,69 @@ function onListening() {
     : 'port ' + addr.port;
   debug('Listening on ' + bind);
 }
+
+/*
+    开始使用socketd对话机制
+      在真实的开发中，是需要很多机制来处理的
+*/
+//1.导入包
+let socketPackage = require("socket.io");
+//2.实例化一个对象
+let io = socketPackage(server);  //server表示创建的服务器对象
+//3.建立连接
+io.on("connection",(socket)=>{
+    console.log("连接成功");
+    //返回消息   通过emit方法来输出
+    socket.emit('msg',"欢迎来找小撩聊天！");
+
+    //接收客户端的消息
+    socket.on("msg",(data)=>{    //绑定msg消息事件，客户端传递过来的数据data
+        console.log(data);
+        //根据客户端的消息做出回应
+        let msg = getMsg(data);
+        console.log(msg);
+        socket.emit("msg",msg);
+    });
+
+    //监听连接关闭
+    socket.on("disconnect",()=>{
+      console.log("连接已关闭");
+    })
+
+
+});
+
+//根据用户的输入返回对应的消息
+let getMsg = function (data) {
+  let msg = '';
+  switch(data){
+    case "小张":
+      msg="我在呢...";
+      break;
+    case "在干嘛？":
+      msg="嘛也不干...";
+      break;
+    case "那咋办":
+      msg="不知道啊...";
+      break;
+    case "哎":
+      msg="难受...";
+      break;
+    case "我爱你":
+      msg="我也爱你哦...";
+      break;
+    case "么么哒":
+      msg="吧唧一下啦...";
+      break;
+    case "嘿嘿嘿":
+      msg="再见，再也不见...";
+      break;
+    default:
+      msg="滚，不想和你说话...";
+      break;
+  }
+  return msg;
+}
+
+
+

@@ -19,7 +19,7 @@
     </div>
     <div class="panel-body" style="position: relative;">
         <ul id="chatList">
-            <li class="service"><span class="chat-msg">我想吃饭</span></li>
+            <!--<li class="service"><span class="chat-msg">我想吃饭</span></li>
             <li class="custom"><span class="chat-msg">吃什么饭, 赶紧敲代码去!</span></li>
             <li class="service"><span class="chat-msg">我想吃饭</span></li>
             <li class="custom"><span class="chat-msg">吃什么饭, 赶紧敲代码去!</span></li>
@@ -28,7 +28,7 @@
             <li class="service"><span class="chat-msg">我想吃饭</span></li>
             <li class="custom"><span class="chat-msg">吃什么饭, 赶紧敲代码去!</span></li>
             <li class="service"><span class="chat-msg">我想吃饭</span></li>
-            <li class="custom"><span class="chat-msg">吃什么饭, 赶紧敲代码去!</span></li>
+            <li class="custom"><span class="chat-msg">吃什么饭, 赶紧敲代码去!</span></li>-->
         </ul>
     </div>
     <div class="panel-footer">
@@ -42,17 +42,20 @@
 <script>
     // 1. 建立连接
     let url = "http://localhost:3000";
+    //表示拿到socket中的io对象来连接上URL地址
     let socket = io.connect(url);
 
+    //下面的时间均由socket实例对象来实现
+
     // 2. 监听
-    socket.on("connect", () => {
-        console.log("已经建立连接");
-        // 2.1 打开通道
-        socket.emit("open");
+    socket.on("connect",()=>{
+        console.log("已经建立了连接");
+        //打开通道
+        socket.emit("open");   //通过emit来提交一个打开事件
     });
 
     // 3. 接收服务器返回的消息
-    socket.on('msg', (data) => {
+    socket.on('msg', (data) => {    //监听消息事件msg，接收数据data
         // console.log(data);
         dealWithMsg("service", data);
     });
@@ -86,6 +89,8 @@
         // 3. 清空输入框
         $("#msg").val('');
     }
+
+    //处理传递过来的消息
     function dealWithMsg(className, data) {
         // 1. 创建li标签
         let $liDom = $("<li>");
