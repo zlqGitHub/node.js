@@ -56,14 +56,14 @@
 
     // 3. 接收服务器返回的消息
     socket.on('msg', (data) => {    //监听消息事件msg，接收数据data
-        // console.log(data);
+        console.log(data);
         dealWithMsg("service", data);
     });
 
     // 4. 添加用户发送信息
-    $("#btn_send").on("click", ()=>{
+    $("#btn_send").on("click",()=>{
         addCustomMsg();
-    });
+    })
 
     $("#btn_close").on("click", ()=>{
         socket.disconnect(true);
@@ -71,43 +71,50 @@
     });
 
     // 5. 处理回车
-    $(window).on("keydown", (event)=>{
-        if(event.keyCode === 13){ // 回车
+    $(window).on("keydown",(event)=>{
+        // console.log(event.keyCode);
+        if(event.keyCode === 13){
             addCustomMsg();
         }
-    });
+    })
 
-
-
+    /*
+        前后端消息交互，是通过socket的emit方法来互相监听的
+     */
     function addCustomMsg() {
-        // 1. 发送消息给服务器
-        socket.emit("msg", $("#msg").val());
+        //向服务器发送消息
+        socket.emit("msg",$("#msg").val());
 
-        // 2. 显示到客户端的页面
-        dealWithMsg("custom", $("#msg").val());
+        //显示到客户端界面
+        dealWithMsg("custom",$("#msg").val());
 
-        // 3. 清空输入框
-        $("#msg").val('');
+        //清空输入框
+        $("#msg").val("");
     }
 
     //处理传递过来的消息
-    function dealWithMsg(className, data) {
-        // 1. 创建li标签
+    function dealWithMsg(className,data) {
+        //创建一个li标签
         let $liDom = $("<li>");
-        $liDom.attr({"class": className});
+        $liDom.attr("class",className);
 
+        //创建li元素中的span标签
         let $spanDom = $("<span>");
-        $spanDom.attr({"class": "chat-msg"});
+        $spanDom.attr({"class":"chat-msg"});
         $spanDom.text(data);
 
+        //将创建好的元素添加到页面中去
         $liDom.append($spanDom);
-        $("#chatList").append($liDom);
+        $("#chatList").append($liDom);   //append 向每个匹配的元素内部追加内容。
 
-        // 2. 让滚动条保持在底部
-        let scrollHeight = $('#chatList')[0].scrollHeight;
-        $('#chatList').scrollTop(scrollHeight);
-        console.log(scrollHeight);
+        //让滚动条保持在底部
+        let scrollHeight = $("#chatList")[0].scrollHeight;
+        // console.log($("#chatList")[0].scrollHeight);
+        // console.log($("#chatList")[0].scrollTop);
+        $("#chatList").scrollTop(scrollHeight);
+
     }
+
 </script>
 </body>
 </html>

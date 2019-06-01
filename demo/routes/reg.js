@@ -22,9 +22,9 @@ router.post("/",function (req,res,next) {
     console.log(user);
 
     if(user === undefined || null === user){
-        res.send("用户已注册");
-    }else{
         res.redirect("/login");
+    }else{
+        res.send("用户已注册");
     }
 
 });
