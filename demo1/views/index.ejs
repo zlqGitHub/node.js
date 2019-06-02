@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="/js/jquery.mCustomScrollbar.css" />
+    <link rel="stylesheet" href="/js/index.css">
+    <!--[if lt IE 9]>
+    <script src="/lib/html5shiv/html5shiv.js"></script>
+    <![endif]-->
+    <script src="/socket.io/socket.io.js"></script>
+    <script type="text/javascript" src="/lib/jquery/jquery.js"></script>
+    <script type="text/javascript" src="/jquery.mCustomScrollbar.concat.min.js"></script>
+    <script type="text/javascript" src="/js/index.js"></script>
+  </head>
+  <body>
+    <!--聊天室-->
+    <div id="container">
+      <!--左边栏-->
+      <div id="left">
+        <img src="/images/header.jpg" alt="" width="40">
+      </div>
+      <!--聊天中间栏-->
+      <div id="center">
+        <span>联</span>
+        <span>系</span>
+        <span>人</span>
+        <span>区</span>
+        <span>域</span>
+      </div>
+      <!--聊天右边栏-->
+      <div id="right">
+        <div class="name">
+          <span>陪聊机器人</span>
+        </div>
+
+        <div class="body mCustomScrollbar" data-mcs-theme="minimal-dark">
+          <ul id="contents">
+            <!--<li class="server">
+              <span>欢迎来找小张聊天，给你带来无限的乐趣</span>
+            </li>
+            <li class="custom">
+              <span> 撒浪嘿呦</span>
+            </li>
+            <li class="server">
+              <span>欢迎来找小张聊天，给你带来无限的乐趣</span>
+            </li>
+            <li class="custom">
+              <span> 撒浪嘿呦</span>
+            </li>-->
+          </ul>
+
+
+        </div>
+
+        <div class="content">
+          <textarea id="content" style="overflow-y: auto" class="mCustomScrollbar" data-mcs-theme="minimal-dark"></textarea>
+          <button id="send_btn">发送</button>
+          <div class="tip">
+            不能发送空白消息
+          </div>
+          <span class="arrow"></span>
+        </div>
+
+      </div>
+    </div>
+
+    <script>
+      // 处理对话机制
+      // 1. 建立连接
+      let url = "127.0.0.1:3000";
+      let socket = io.connect(url);  //表示拿到socket中的io对象来连接上URL地址
+
+      //下面的时间均由socket实例对象来实现
+      // 2. 监听
+      socket.on("connect",()=>{
+        console.log("已经建立了连接");
+        //打开通道
+        socket.emit("open");   //通过emit来提交一个打开事件
+      });
+
+      //监听服务器端传递过来的数据
+      socket.on("msg",(data)=>{
+        // console.log(data);
+        //将数据写到ul中
+        writeDownMsg("server",data);
+      });
+
+      //向服务端传递消息
+      $("#send_btn").on("click",function () {
+        addCustomData();
+      })
+
+      //回车后发送消息
+      $(window).on("keydown",function (event) {
+        // console.log(event.keyCode);
+        if(event.keyCode === 13){
+          addCustomData();
+          event.preventDefault();   //取消回车的默认事件，点击后文本回车
+          // event.stopPropagation();    取消冒泡事件
+        }
+      });
+
+      function addCustomData() {
+        let data = $("#content").val();
+        // console.log(data);
+        if(!data){
+          $("#container #right .content .arrow").css({"display":"block"});
+          $("#container #right .content .tip").css({"display":"block"});
+          setTimeout(()=>{
+            $("#container #right .content .arrow").css({"display":"none"});
+            $("#container #right .content .tip").css({"display":"none"});
+          },2000);
+          return;
+        }
+        // console.log(data);
+        socket.emit("msg",data);   //将数据传递给服务器
+
+        //将输入的内容放到ul中
+        writeDownMsg("custom",data);
+
+        //将输入框清空
+        $("#content").val('');
+
+      }
+
+      //处理产生的数据,插入到ul中
+      function writeDownMsg(className,data) {
+        let $liDom = $("<li>");
+        $liDom.attr({"class":className});
+
+        let $spanDom  = $("<span>");
+        $spanDom.text(data);
+
+        $liDom.append($spanDom);
+
+        $("#contents").append($liDom);
+
+        //让滚动条一直处于最下方
+        // console.log($(".body")[0].scrollHeight);
+        // let scrollHeight = $(".body")[0].scrollHeight;
+        $('#container #right .mCustomScrollbar').mCustomScrollbar('scrollTo',"bottom","000.1ms");
+      }
+
+    </script>
+
+  </body>
+</html>

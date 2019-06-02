@@ -1,0 +1,181 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+body,html{
+    background: #fff;
+}
+#container{
+    width: 852px;
+    height: 582px;
+    background: rgba(0,0,0,0.8);
+    margin: 30px auto;
+    border-radius: 2px;
+    border: 1px solid #D0D0D0;
+}
+/*************左边栏***************/
+#container #left{
+    width: 60px;
+    height: 580px;
+    background: #282C31;
+    float: left;
+    padding-top: 20px;
+    text-align: center;
+    border-bottom-left-radius: 2px;
+    border-top-left-radius: 2px;
+}
+
+/*************中间栏***************/
+#container #center{
+    width: 250px;
+    height: 580px;
+    background: #EEEAE8;
+    float: left;
+    text-align: center;
+    padding-top: 100px;
+}
+#container #center span{
+    font-size: 30px;
+    display: block;
+}
+
+/*************右边栏***************/
+#container #right{
+    width: 540px;
+    height: 580px;
+    background: #F5F5F5;
+    float: left;
+    border-bottom-right-radius: 2px;
+    border-top-right-radius: 2px;
+}
+
+#container #right .name{
+    height: 75px;
+    border-bottom: 1px solid #E7E7E7;
+    border-top-right-radius: 2px;
+}
+#container #right .name span{
+    font-size: 22px;
+    line-height: 75px;
+    margin-left: 25px;
+}
+#container #right .body{
+    height: 380px;
+    border-bottom: 1px solid #E7E7E7;
+    list-style: none;
+    overflow-y: auto;
+}
+#container #right .body .server{
+    /*max-width: 350px;*/
+    width: 350px;
+    display: inline-block;
+
+    margin: 5px 10px 15px;
+    box-sizing: border-box;
+    overflow: hidden;
+    /*float: left;*/
+}
+#container #right .body .server::before{
+    content: "";
+    display: block;
+    float: left;
+    width: 38px;
+    height: 38px;
+    vertical-align: middle;
+    background: url("./../images/server.ico") no-repeat;
+    background-size: 35px 35px;
+    margin-right: 5px;
+    margin-left: 5px;
+}
+#container #right .body .server span{
+    display: block;
+    margin-left: 50px;
+    background: #FFF;
+    /*float: left;*/
+    font-size: 14px;
+    box-sizing: border-box;
+    line-height: 22px;
+    padding: 6px 8px;
+}
+#container #right .body .custom{
+    width: 350px;
+    display: inline-block;
+    margin: 5px 15px 15px;
+    float: right;
+    position: relative;
+    overflow: hidden;
+}
+#container #right .body .custom span{
+    display: block;
+    float: right;
+    margin-right: 50px;
+    padding: 5px 8px;
+    background: #9EEA6A;
+    line-height: 22px;
+    /*text-align: right;*/
+}
+#container #right .body .custom:after{
+    content: "";
+    display: block;
+    width: 38px;
+    height: 38px;
+    /*float: right;*/
+    background: url("./../images/header.jpg");
+    background-size: cover;
+    /*float: right;*/
+    position: absolute;
+    right: 3px;
+}
+#container #right .body li:nth-child(1){
+    margin-top: 20px;
+}
+#container #right .content{
+    height: 125px;
+    background: #fff;
+    border-bottom-right-radius: 2px;
+    overflow: hidden;
+    position: relative;
+}
+
+#container #right .content #content{
+    display: block;
+    /*background: pink;*/
+    resize: none;
+    width: 500px;
+    height: 75px;
+    margin: 15px 15px 5px;
+    outline: none;
+    /*border: none;*/
+    line-height: 25px;
+    font-size: 15px;
+}
+#container #right .content #send_btn{
+    padding: 0px 10px;
+    position: relative;
+    left: 462px;
+    border: 1px solid #ccc;
+}
+#container #right .content #send_btn:hover{
+    background: #09BB07;
+    color: #fff;
+    border-color: #09BB07;
+}
+#container #right .content .tip{
+    position: absolute;
+    border: 1px solid #ccc;
+    padding: 5px 12px;
+    border-radius: 2px;
+    top: 54px;
+    right: 28px;
+    font-size: 12px;
+    color: #333;
+    display: none;
+}
+#container #right .content .arrow{
+    position: absolute;
+    top: 82px;
+    right: 45px;
+    border: 8px solid transparent;
+    border-top-color: #ccc;
+    display: none;
+}

@@ -1,0 +1,171 @@
+#!/usr/bin/env node
+
+/**
+ * Module dependencies.
+ */
+
+var app = require('../app');
+var debug = require('debug')('demo1:server');
+var http = require('http');
+
+/**
+ * Get port from environment and store in Express.
+ */
+
+var port = normalizePort(process.env.PORT || '3000');
+app.set('port', port);
+
+/**
+ * Create HTTP server.
+ */
+
+var server = http.createServer(app);
+
+/**
+ * Listen on provided port, on all network interfaces.
+ */
+
+server.listen(port);
+server.on('error', onError);
+server.on('listening', onListening);
+
+/**
+ * Normalize a port into a number, string, or false.
+ */
+
+function normalizePort(val) {
+  var port = parseInt(val, 10);
+
+  if (isNaN(port)) {
+    // named pipe
+    return val;
+  }
+
+  if (port >= 0) {
+    // port number
+    return port;
+  }
+
+  return false;
+}
+
+/**
+ * Event listener for HTTP server "error" event.
+ */
+
+function onError(error) {
+  if (error.syscall !== 'listen') {
+    throw error;
+  }
+
+  var bind = typeof port === 'string'
+    ? 'Pipe ' + port
+    : 'Port ' + port;
+
+  // handle specific listen errors with friendly messages
+  switch (error.code) {
+    case 'EACCES':
+      console.error(bind + ' requires elevated privileges');
+      process.exit(1);
+      break;
+    case 'EADDRINUSE':
+      console.error(bind + ' is already in use');
+      process.exit(1);
+      break;
+    default:
+      throw error;
+  }
+}
+
+/**
+ * Event listener for HTTP server "listening" event.
+ */
+
+function onListening() {
+  var addr = server.address();
+  var bind = typeof addr === 'string'
+    ? 'pipe ' + addr
+    : 'port ' + addr.port;
+  debug('Listening on ' + bind);
+}
+
+/*
+  聊天对话机制处理
+*/
+//1.导包
+let socketPackage = require("socket.io");
+//2.实例化对象 并监听服务器
+let io = socketPackage(server);   //server已在Express生成器执行过程中创建
+
+//3.建立连接   需要客户端与服务器端建立通话机制后，才能连接
+io.on("connection",(socket)=>{
+  console.log("连接成功");
+  //通过emit()方法向客户端输出
+  socket.emit("msg","欢迎你来找我聊天，我将给你带来无限的乐趣")
+
+  //监听客户端传来的消息
+  socket.on("msg",(data)=>{  //绑定msg消息事件，客户端传递过来的数据data
+    // console.log(data);
+    //获取对应的回话
+    let msg = getMsg(data);
+    // console.log(msg);
+    //将回话输出到客户端
+    socket.emit("msg",msg);
+  })
+  
+  //监听连接关闭
+  socket.on("disconnect",()=>{
+    console.log("连接已关闭");
+  })
+});
+
+let getMsg = function (data) {
+  let msg = '';
+  switch (data) {
+    case "你好":
+      msg = "你好呀，见到你很高兴";
+      break;
+    case "在":
+      msg = "在的，小强时时刻刻都在，时刻在准备着陪客官大人聊嗨";
+      break;
+    case "你在干嘛":
+      msg = "嘛也不干，等人来找聊天呢，你呢";
+      break;
+    case "我好难过":
+      msg = "怎么了呀，我能帮到你什么";
+      break;
+    case "我有很多钱，花不完，为此感到惆怅":
+      msg = "嘿呀，这还叫事嘛，我是一个机器人，我现在还很不健全，很多地方需要去完善、升级，" +
+          "你把钱投资给我不好吗？这样我能有更完美的系统，更人性化的陪聊，说不定还能当你女朋友呢。嘿嘿嘿";
+      break;
+    case "你说的太好了，我这就去搞投资":
+      msg = "那太好了，灰常感谢";
+      break;
+    case "嗯嗯，不客气":
+      msg = "那你，现在心情怎么样了呢";
+      break;
+    case "棒极了":
+      msg = "看到你这样，小强也开心极了";
+      break;
+    case "再见啦":
+      msg = "再见，么么哒";
+      break;
+    case "我爱你":
+      msg = "我也爱你坳";
+      break;
+    case "去你妹的":
+      msg = "出言不逊，系统会将您列入黑名单的，将不在与你聊天的，小心行事噢";
+      break;
+    case "巴嘎":
+      msg = "你个狗日的，我叼你老母";
+      break;
+    case "我爱你中国":
+      msg = "中国也爱你";
+      break;
+    default:
+      msg = "系统加急完善中，请耐心等待...";
+      break;
+  }
+  return msg;
+}
+

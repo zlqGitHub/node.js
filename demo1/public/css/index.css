@@ -1,0 +1,85 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+body,html{
+    background: #fff;
+}
+#container{
+    width: 852px;
+    height: 582px;
+    background: rgba(0,0,0,0.8);
+    margin: 30px auto;
+    border-radius: 2px;
+    border: 1px solid #D0D0D0;
+}
+/*************左边栏***************/
+#container #left{
+    width: 60px;
+    height: 580px;
+    background: #282C31;
+    float: left;
+    padding-top: 20px;
+    text-align: center;
+    border-bottom-left-radius: 2px;
+    border-top-left-radius: 2px;
+}
+
+/*************中间栏***************/
+#container #center{
+    width: 250px;
+    height: 580px;
+    background: #EEEAE8;
+    float: left;
+    text-align: center;
+    padding-top: 100px;
+}
+#container #center span{
+    font-size: 30px;
+    display: block;
+}
+
+/*************右边栏***************/
+#container #right{
+    width: 540px;
+    height: 580px;
+    background: #F5F5F5;
+    float: left;
+    border-bottom-right-radius: 2px;
+    border-top-right-radius: 2px;
+}
+
+#container #right .name{
+    height: 75px;
+    border-bottom: 1px solid #E7E7E7;
+    border-top-right-radius: 2px;
+}
+#container #right .name span{
+    font-size: 22px;
+    line-height: 75px;
+    margin-left: 25px;
+}
+#container #right .body{
+    height: 380px;
+
+    border-bottom: 1px solid #E7E7E7;
+}
+#container #right .content{
+    height: 125px;
+    background: #fff;
+    border-bottom-right-radius: 2px;
+    overflow: hidden;
+}
+
+#container #right .content #content{
+    display: block;
+    /*background: pink;*/
+    resize: none;
+    width: 500px;
+    height: 85px;
+    margin: 5px 15px;
+    outline: none;
+    /*border: none;*/
+    line-height: 28px;
+    font-size: 14px;
+}
