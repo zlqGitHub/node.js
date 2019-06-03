@@ -4,14 +4,11 @@ $(function () {
     let $parent = $(".parent");
     let $child = $(".child");
 
-    // console.log($content.innerHeight());
-    // console.log($box.innerHeight());
-
     //当内容区高度小于父元素高度时  设置内容区宽度
     if($content.innerHeight() <= $box.innerHeight()){
         $parent.css({"display":"none"});
         $content.width($box.width());
-    }else{
+    }else{     //设置滚动条的高度
         let height = ($box.innerHeight()/$content.innerHeight() * $box.innerHeight());
         // console.log(height);
         $content.width(280);
@@ -29,8 +26,9 @@ $(function () {
         let oh = clientY - offsetT;     //点击时鼠标纵坐标与元素的间距（指垂直方向）
         let outHeight = $content.innerHeight() - $box.innerHeight();   //内容超出滚动方向的高度
         let childScrollH = $parent.innerHeight() - $child.innerHeight();    //滚动条在滚动方向上可滚动的高度
-        console.log(outHeight);
+        // console.log(outHeight);
         $(document).on("mousemove",function (event) {
+            console.log("test");
             event = event || window.event;
             // console.log(event);
             let height = event.clientY - oh;   //滚动条要移动到的位置
@@ -41,8 +39,8 @@ $(function () {
                 height = $parent.innerHeight() - $child.innerHeight();
             }
 
-            var scale = height/childScrollH;// 定义一个滚动的比例
-
+            let scale = height/childScrollH;// 定义一个滚动的比例
+            // console.log(scale);a 1
             //改变滚动条的位置
             $child.css({"top":height})
             //改变内容的高度
@@ -57,11 +55,9 @@ $(function () {
         return false;   //取消事件的默认行为
     });
 
-    //实现鼠标的滚动事件
-    // $box.scroll(function () {
-    //     console.log(123)
-    // });
-
-
+    // $box.on("mousewheel",function () {
+    //     $child.mousedown();
+    //     $(document).mousemove();
+    // })
 
 });
